@@ -8,11 +8,13 @@ class _SearchField extends StatefulWidget {
   final Duration? futureRequestDelay;
   final ValueChanged<bool>? onFutureRequestLoading;
   final ValueChanged<bool>? mayFoundResult;
+  final String searchHintText;
 
   const _SearchField.forListData({
     Key? key,
     required this.items,
     required this.onSearchedItems,
+    required this.searchHintText,
   })  : searchType = _SearchType.onListData,
         futureRequest = null,
         futureRequestDelay = null,
@@ -28,6 +30,7 @@ class _SearchField extends StatefulWidget {
     required this.futureRequestDelay,
     required this.onFutureRequestLoading,
     required this.mayFoundResult,
+    required this.searchHintText,
   })  : searchType = _SearchType.onRequestData,
         super(key: key);
 
@@ -44,8 +47,7 @@ class _SearchFieldState extends State<_SearchField> {
   @override
   void initState() {
     super.initState();
-    if (widget.searchType == _SearchType.onRequestData &&
-        widget.items.isEmpty) {
+    if (widget.searchType == _SearchType.onRequestData && widget.items.isEmpty) {
       focusNode.requestFocus();
     }
   }
@@ -58,9 +60,7 @@ class _SearchFieldState extends State<_SearchField> {
   }
 
   void onSearch(String str) {
-    final result = widget.items
-        .where((item) => item.toLowerCase().contains(str.toLowerCase()))
-        .toList();
+    final result = widget.items.where((item) => item.toLowerCase().contains(str.toLowerCase())).toList();
     widget.onSearchedItems(result);
   }
 
@@ -100,15 +100,12 @@ class _SearchFieldState extends State<_SearchField> {
             isFieldEmpty = false;
           }
 
-          if (widget.searchType != null &&
-              widget.searchType == _SearchType.onRequestData &&
-              val.isNotEmpty) {
+          if (widget.searchType != null && widget.searchType == _SearchType.onRequestData && val.isNotEmpty) {
             widget.onFutureRequestLoading!(true);
 
             if (widget.futureRequestDelay != null) {
               _delayTimer?.cancel();
-              _delayTimer =
-                  Timer(widget.futureRequestDelay ?? Duration.zero, () {
+              _delayTimer = Timer(widget.futureRequestDelay ?? Duration.zero, () {
                 searchRequest(val);
               });
             } else {
@@ -126,7 +123,7 @@ class _SearchFieldState extends State<_SearchField> {
           fillColor: Colors.grey[50],
           constraints: const BoxConstraints.tightFor(height: 40),
           contentPadding: const EdgeInsets.all(8),
-          hintText: 'Search',
+          hintText: widget.searchHintText,
           hintStyle: const TextStyle(color: Colors.grey),
           prefixIcon: const Icon(Icons.search, color: Colors.grey, size: 22),
           suffixIcon: GestureDetector(

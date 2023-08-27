@@ -30,11 +30,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final formKey = GlobalKey<FormState>();
+  //final List<String> list = ['Developer', 'Designer', 'Consultant', 'Student', "Management", "Marketing", "Sales", "Males", "Test", "Developer", "Tester", "Desginer", "Data", "1111", "22222", "3333", "44444", "555555", "666666", "77777", "888888", "999999", "100000", "11"];
   final List<String> list = ['Developer', 'Designer', 'Consultant', 'Student'];
-  final jobRoleDropdownCtrl = TextEditingController(),
-      jobRoleFormDropdownCtrl = TextEditingController(),
-      jobRoleSearchDropdownCtrl = TextEditingController(),
-      jobRoleSearchRequestDropdownCtrl = TextEditingController();
+  final jobRoleDropdownCtrl = TextEditingController(), jobRoleFormDropdownCtrl = TextEditingController(), jobRoleSearchDropdownCtrl = TextEditingController(), jobRoleSearchRequestDropdownCtrl = TextEditingController();
 
   Future<List<String>> getFakeRequestData(String query) async {
     List<String> data = ['Developer', 'Designer', 'Consultant', 'Student'];
@@ -90,6 +88,7 @@ class _HomeState extends State<Home> {
           const SizedBox(height: 8),
           CustomDropdown.search(
             hintText: 'Select job role',
+            searchHintText: 'Suchen...',
             controller: jobRoleSearchDropdownCtrl,
             items: list,
           ),

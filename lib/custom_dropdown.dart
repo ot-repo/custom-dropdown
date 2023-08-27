@@ -26,6 +26,7 @@ class CustomDropdown extends StatefulWidget {
   final List<String>? items;
   final TextEditingController controller;
   final String? hintText;
+  final String? searchHintText;
   final TextStyle? hintStyle;
   final TextStyle? selectedStyle;
   final String? errorText;
@@ -56,6 +57,7 @@ class CustomDropdown extends StatefulWidget {
     required this.items,
     required this.controller,
     this.hintText,
+    this.searchHintText,
     this.hintStyle,
     this.selectedStyle,
     this.errorText,
@@ -75,9 +77,7 @@ class CustomDropdown extends StatefulWidget {
           'Controller value must match with one of the item in items list.',
         ),
         assert(
-          (listItemBuilder == null && listItemStyle == null) ||
-              (listItemBuilder == null && listItemStyle != null) ||
-              (listItemBuilder != null && listItemStyle == null),
+          (listItemBuilder == null && listItemStyle == null) || (listItemBuilder == null && listItemStyle != null) || (listItemBuilder != null && listItemStyle == null),
           'Cannot use both listItemBuilder and listItemStyle.',
         ),
         searchType = null,
@@ -92,6 +92,7 @@ class CustomDropdown extends StatefulWidget {
     required this.items,
     required this.controller,
     this.hintText,
+    this.searchHintText,
     this.hintStyle,
     this.listItemBuilder,
     this.selectedStyle,
@@ -113,9 +114,7 @@ class CustomDropdown extends StatefulWidget {
           'Controller value must match with one of the item in items list.',
         ),
         assert(
-          (listItemBuilder == null && listItemStyle == null) ||
-              (listItemBuilder == null && listItemStyle != null) ||
-              (listItemBuilder != null && listItemStyle == null),
+          (listItemBuilder == null && listItemStyle == null) || (listItemBuilder == null && listItemStyle != null) || (listItemBuilder != null && listItemStyle == null),
           'Cannot use both listItemBuilder and listItemStyle.',
         ),
         searchType = _SearchType.onListData,
@@ -130,6 +129,7 @@ class CustomDropdown extends StatefulWidget {
     this.futureRequestDelay,
     this.items,
     this.hintText,
+    this.searchHintText,
     this.hintStyle,
     this.selectedStyle,
     this.errorText,
@@ -146,9 +146,7 @@ class CustomDropdown extends StatefulWidget {
     this.hideSelectedFieldWhenOpen = false,
     this.fillColor = Colors.white,
   })  : assert(
-          (listItemBuilder == null && listItemStyle == null) ||
-              (listItemBuilder == null && listItemStyle != null) ||
-              (listItemBuilder != null && listItemStyle == null),
+          (listItemBuilder == null && listItemStyle == null) || (listItemBuilder == null && listItemStyle != null) || (listItemBuilder != null && listItemStyle == null),
           'Cannot use both listItemBuilder and listItemStyle.',
         ),
         searchType = _SearchType.onRequestData,
@@ -165,6 +163,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
   Widget build(BuildContext context) {
     /// hint text
     final hintText = widget.hintText ?? 'Select value';
+    final searchHintText = widget.searchHintText ?? 'Search';
 
     // hint style :: if provided then merge with default
     final hintStyle = const TextStyle(
@@ -188,9 +187,9 @@ class _CustomDropdownState extends State<CustomDropdown> {
           listItemBuilder: widget.listItemBuilder,
           layerLink: layerLink,
           hideOverlay: hideCallback,
-          headerStyle:
-              widget.controller.text.isNotEmpty ? selectedStyle : hintStyle,
+          headerStyle: widget.controller.text.isNotEmpty ? selectedStyle : hintStyle,
           hintText: hintText,
+          searchHintText: searchHintText,
           listItemStyle: widget.listItemStyle,
           excludeSelected: widget.excludeSelected,
           canCloseOutsideBounds: widget.canCloseOutsideBounds,
