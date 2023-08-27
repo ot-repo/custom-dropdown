@@ -24,6 +24,7 @@ typedef _ListItemBuilder = Widget Function(BuildContext context, String result);
 
 class CustomDropdown extends StatefulWidget {
   final List<String>? items;
+  final int? visibleItemCount;
   final TextEditingController controller;
   final String? hintText;
   final String? searchHintText;
@@ -55,6 +56,7 @@ class CustomDropdown extends StatefulWidget {
   CustomDropdown({
     Key? key,
     required this.items,
+    this.visibleItemCount,
     required this.controller,
     this.hintText,
     this.searchHintText,
@@ -90,6 +92,7 @@ class CustomDropdown extends StatefulWidget {
   CustomDropdown.search({
     Key? key,
     required this.items,
+    this.visibleItemCount,
     required this.controller,
     this.hintText,
     this.searchHintText,
@@ -125,6 +128,7 @@ class CustomDropdown extends StatefulWidget {
   const CustomDropdown.searchRequest({
     Key? key,
     required this.controller,
+    this.visibleItemCount,
     required this.futureRequest,
     this.futureRequestDelay,
     this.items,
@@ -182,6 +186,7 @@ class _CustomDropdownState extends State<CustomDropdown> {
       overlay: (size, hideCallback) {
         return _DropdownOverlay(
           items: widget.items ?? [],
+          visibleItemCount: widget.visibleItemCount ?? 4,
           controller: widget.controller,
           size: size,
           listItemBuilder: widget.listItemBuilder,

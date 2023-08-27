@@ -12,6 +12,7 @@ const _listItemPadding = EdgeInsets.symmetric(vertical: 12, horizontal: 16);
 
 class _DropdownOverlay extends StatefulWidget {
   final List<String> items;
+  final int visibleItemCount;
   final TextEditingController controller;
   final Size size;
   final LayerLink layerLink;
@@ -33,6 +34,7 @@ class _DropdownOverlay extends StatefulWidget {
   const _DropdownOverlay({
     Key? key,
     required this.items,
+    required this.visibleItemCount,
     required this.controller,
     required this.size,
     required this.layerLink,
@@ -189,10 +191,10 @@ class _DropdownOverlayState extends State<_DropdownOverlay> {
                     axisAlignment: displayOverlayBottom ? 1.0 : -1.0,
                     child: SizedBox(
                       key: key2,
-                      height: items.length > 8
+                      height: items.length > widget.visibleItemCount + 1
                           ? onSearch
-                              ? 495
-                              : 450
+                              ? (widget.visibleItemCount + 2) * 45
+                              : (widget.visibleItemCount + 1) * 45
                           : null,
                       child: ClipRRect(
                         borderRadius: borderRadius,
@@ -328,7 +330,7 @@ class _DropdownOverlayState extends State<_DropdownOverlay> {
                                     )),
                                   )
                                 else
-                                  items.length > 8 ? Expanded(child: list) : list
+                                  items.length > widget.visibleItemCount + 1 ? Expanded(child: list) : list
                               ],
                             ),
                           ),

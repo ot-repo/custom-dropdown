@@ -30,8 +30,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final formKey = GlobalKey<FormState>();
-  //final List<String> list = ['Developer', 'Designer', 'Consultant', 'Student', "Management", "Marketing", "Sales", "Males", "Test", "Developer", "Tester", "Desginer", "Data", "1111", "22222", "3333", "44444", "555555", "666666", "77777", "888888", "999999", "100000", "11"];
-  final List<String> list = ['Developer', 'Designer', 'Consultant', 'Student'];
+  final List<String> list = ['Developer', 'Designer', 'Consultant', 'Student', "Management", "Marketing", "Sales", "Males", "Test", "Developer", "Tester", "Desginer", "Data", "1111", "22222", "3333", "44444", "555555", "666666", "77777", "888888", "999999", "100000", "11"];
+  //final List<String> list = ['Developer', 'Designer', 'Consultant', 'Student'];
   final jobRoleDropdownCtrl = TextEditingController(), jobRoleFormDropdownCtrl = TextEditingController(), jobRoleSearchDropdownCtrl = TextEditingController(), jobRoleSearchRequestDropdownCtrl = TextEditingController();
 
   Future<List<String>> getFakeRequestData(String query) async {
@@ -76,6 +76,7 @@ class _HomeState extends State<Home> {
           CustomDropdown(
             hintText: 'Select job role',
             items: list,
+            visibleItemCount: 3,
             controller: jobRoleDropdownCtrl,
             excludeSelected: false,
           ),
@@ -87,10 +88,11 @@ class _HomeState extends State<Home> {
           const Text('Job Roles Search Dropdown', style: _labelStyle),
           const SizedBox(height: 8),
           CustomDropdown.search(
-            hintText: 'Select job role',
+            hintText: 'Select job role2',
             searchHintText: 'Suchen...',
             controller: jobRoleSearchDropdownCtrl,
             items: list,
+            visibleItemCount: 4,
           ),
           const SizedBox(height: 24),
           const Divider(height: 0),
